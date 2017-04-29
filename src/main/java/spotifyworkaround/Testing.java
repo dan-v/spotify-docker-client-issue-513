@@ -1,4 +1,4 @@
-package spotifyfix;
+package spotifyworkaround;
 
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
