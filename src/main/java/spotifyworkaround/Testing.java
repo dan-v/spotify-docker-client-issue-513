@@ -4,6 +4,9 @@ import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.LogStream;
 import com.spotify.docker.client.messages.*;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.concurrent.TimeUnit;
 
 public class Testing {
@@ -40,8 +43,10 @@ public class Testing {
                 }
                 final ExecState state = docker.execInspect(execCreation.id());
                 System.out.println("Exit code: " + state.exitCode());
-            } catch (Exception e) {
-                System.out.println(e);
+            } catch (Exception ex) {
+                StringWriter errors = new StringWriter();
+                ex.printStackTrace(new PrintWriter(errors));
+                System.out.println(errors.toString());
             }
         }
     }

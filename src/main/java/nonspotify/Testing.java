@@ -9,6 +9,9 @@ import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.core.command.ExecStartResultCallback;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 public class Testing {
 
     public static void main(String[] args) {
@@ -29,8 +32,10 @@ public class Testing {
                         .exec(new ExecStartResultCallback(System.out, System.err)).awaitCompletion();
                 InspectExecResponse execCmdResponse = docker.inspectExecCmd(createExecCmd.getId()).exec();
                 System.out.println("Exit code: " + execCmdResponse.getExitCode());
-            } catch (Exception e) {
-                System.out.println(e);
+            } catch (Exception ex) {
+                StringWriter errors = new StringWriter();
+                ex.printStackTrace(new PrintWriter(errors));
+                System.out.println(errors.toString());
             }
         }
     }
